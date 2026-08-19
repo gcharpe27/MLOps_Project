@@ -22,7 +22,7 @@ jobs:
       - name: Install Dependencies
         run: pip install -r tourism_project/requirements.txt
       - name: Register Dataset
-        run: tourism_project/model_building/data_register.py
+        run: python tourism_project/model_building/data_register.py
       - name: Upload Registered Dataset
         uses: actions/upload-artifact@v4
         with:
@@ -40,7 +40,7 @@ jobs:
       - name: Install Dependencies
         run: pip install -r tourism_project/requirements.txt
       - name: Run Data Preparation
-        run: tourism_project/model_building/prep.py
+        run: python tourism_project/model_building/prep.py
       - name: Upload Train Test Splits
         uses: actions/upload-artifact@v4
         with:
@@ -70,11 +70,11 @@ jobs:
           nohup mlflow ui --host 0.0.0.0 --port 5000 &  # Run MLflow UI in the background
           sleep 5  # Wait for a moment to let the server starts
       - name: Model Building
-        run: tourism_project/model_building/train.py
+        run: python tourism_project/model_building/train.py
       - name: Commit Trained Model
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add <add_code_here>   # path to the saved model file
+          git add tourism_project/deployment/best_tourism_project_model_v1.joblib   # path to the saved model file
           git commit -m "Add trained model [skip ci]" || echo "No changes to commit"
           git push
