@@ -69,8 +69,7 @@ if st.button("Predict Purchase"):
     prediction_proba = model.predict_proba(input_df)[:, 1]
 
     st.subheader("Prediction Result")
-    if prediction[0] == 1:
+    if prediction == 1:
         st.success(f"The customer is likely to purchase the package (Probability: {prediction_proba[0]:.2f})")
     else:
         st.info(f"The customer is unlikely to purchase the package (Probability: {prediction_proba[0]:.2f})")
-    
